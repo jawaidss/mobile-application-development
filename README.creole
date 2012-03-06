@@ -1,0 +1,21 @@
+= CSSE491: Directed Independent Study =
+
+= Mobile Application Development =
+
+// Instructor: Sriram Mohan //
+
+** Prerequisites: ** CSSE374, permission of instructor
+
+** Enrollment: ** Samad Jawaid (4 hrs)
+
+** Description: **
+In-depth study of mobile application development. Includes iOS,
+Android, and framework (e.g. PhoneGap and jQuery Mobile) development.
+Emphasis on comparison and contrast between individual mobile
+platforms and their strengths and weaknesses for software projects.
+Each third of the course, students will learn mobile application
+development for a dierent platform, primarily using CSSE490: iOS SDK
+Programming and CSSE490: Android Development course materials. To test
+their skills, they will build the same application for each platform.
+Hence, the end of each platform (and corresponding project) includes a
+substantial demo.
