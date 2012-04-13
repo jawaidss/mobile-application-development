@@ -8,11 +8,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class HelloAndroid extends Activity implements SeekBar.OnSeekBarChangeListener {
-	private LinearLayout linearLayout;
-	private SeekBar redSeekBar;
-	private SeekBar greenSeekBar;
-	private SeekBar blueSeekBar;
-	private TextView textView;
+    private LinearLayout linearLayout;
+    private SeekBar redSeekBar;
+    private SeekBar greenSeekBar;
+    private SeekBar blueSeekBar;
+    private TextView textView;
 
     /** Called when the activity is first created. */
     @Override
@@ -34,17 +34,17 @@ public class HelloAndroid extends Activity implements SeekBar.OnSeekBarChangeLis
         this.textView = (TextView) findViewById(R.id.textView);
     }
 
-	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUse) {
-		 int red = this.redSeekBar.getProgress();
-		 int green = this.greenSeekBar.getProgress();
-		 int blue = this.blueSeekBar.getProgress();
-		 this.linearLayout.setBackgroundColor(Color.rgb(red, green, blue));
-		 this.textView.setText("(" + red + ", " + green + ", " + blue + ")");
-	}
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUse) {
+         int red = this.redSeekBar.getProgress();
+         int green = this.greenSeekBar.getProgress();
+         int blue = this.blueSeekBar.getProgress();
+         this.linearLayout.setBackgroundColor(Color.rgb(red, green, blue));
+         this.textView.setText("(" + red + ", " + green + ", " + blue + ")");
+    }
 
-	public void onStartTrackingTouch(SeekBar seekBar) {
-	}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
 
-	public void onStopTrackingTouch(SeekBar seekBar) {
-	}
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    }
 }
