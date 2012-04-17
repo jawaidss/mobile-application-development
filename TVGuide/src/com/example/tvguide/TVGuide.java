@@ -20,35 +20,37 @@ public class TVGuide extends ListActivity {
 	private TextView selection;
 	private ArrayList<Show> shows = new ArrayList<Show>();
 
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.main);
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.setContentView(R.layout.main);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
 		try {
 			URL url = new URL("http://www.epguides.com/common/allshows.txt");
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					url.openStream()));
 			ArrayList<String> lines = new ArrayList<String>();
 			String line_;
-	        while ((line_ = in.readLine()) != null) {
-	        	lines.add(line_);
-	        }
-	        in.close();
-	        lines.remove(0);
-	        for (String line: lines) {
-	        	line = line.trim();
-	        	if (line.length() > 0) {
-	        		String[] values = line.split("\",");
-	        		String showName = values[0].substring(1);
-	        		String showId = values[1].split(",")[1];
-	        		Show show = new Show(showName, showId);
-	        		this.shows.add(show);
-	        	}
-	        }
+			while ((line_ = in.readLine()) != null) {
+				lines.add(line_);
+			}
+			in.close();
+			lines.remove(0);
+			for (String line : lines) {
+				line = line.trim();
+				if (line.length() > 0) {
+					String[] values = line.split("\",");
+					String showName = values[0].substring(1);
+					String showId = values[1].split(",")[1];
+					Show show = new Show(showName, showId);
+					this.shows.add(show);
+				}
+			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,16 +58,19 @@ public class TVGuide extends ListActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        this.setListAdapter(new ArrayAdapter<Show>(this, android.R.layout.simple_list_item_1, this.shows));
-        this.selection = (TextView) findViewById(R.id.selection);
-    }
+		this.setListAdapter(new ArrayAdapter<Show>(this,
+				android.R.layout.simple_list_item_1, this.shows));
+		this.selection = (TextView) this.findViewById(R.id.selection);
+	}
 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-    	String showId = this.shows.get(position).getId();
-    	if (showId.length() > 0) {
-    		this.selection.setText(showId);
-    	} else {
-    		new AlertDialog.Builder(this).setTitle("Error").setMessage("No show ID").setNeutralButton("Okay", null).show();
-    	}
-    }
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		String showId = this.shows.get(position).getId();
+		if (showId.length() > 0) {
+			this.selection.setText(showId);
+		} else {
+			new AlertDialog.Builder(this).setTitle("Error")
+					.setMessage("No show ID").setNeutralButton("Okay", null)
+					.show();
+		}
+	}
 }
