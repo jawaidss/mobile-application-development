@@ -18,7 +18,7 @@ public class HelloAndroid extends Activity implements SeekBar.OnSeekBarChangeLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        this.setContentView(R.layout.main);
 
         this.linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 

@@ -4,9 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+	<TextView
+		android:id="@+id/selection"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+
+    <ListView
+		android:id="@android:id/list"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:drawSelectorOnTop="false" />
 
 </LinearLayout>
