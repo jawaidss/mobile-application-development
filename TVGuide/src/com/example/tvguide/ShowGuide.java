@@ -17,9 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TVGuide extends ListActivity {
+public class ShowGuide extends ListActivity {
 	private TextView selection;
-	private ArrayList<Show> shows = new ArrayList<Show>();
+	private ArrayList<Episode> episodes = new ArrayList<Episode>();
 
 	/** Called when the activity is first created. */
 	@Override
@@ -31,8 +31,13 @@ public class TVGuide extends ListActivity {
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
+		Intent intent = this.getIntent();
+		String id = intent.getStringExtra("id");
+		String name = intent.getStringExtra("name");
+
 		try {
-			URL url = new URL("http://www.epguides.com/common/allshows.txt");
+			URL url = new URL(
+					"http://epguides.com/common/exportToCSV.asp?rage=" + id);
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					url.openStream()));
 			ArrayList<String> lines = new ArrayList<String>();
@@ -41,16 +46,16 @@ public class TVGuide extends ListActivity {
 				lines.add(line_);
 			}
 			in.close();
-			lines.remove(0);
+			lines = new ArrayList<String>(lines.subList(8, lines.size() - 3));
 			for (String line : lines) {
-				line = line.trim();
-				if (line.length() > 0) {
-					String[] values = line.split("\",");
-					String showName = values[0].substring(1);
-					String showId = values[1].split(",")[1];
-					Show show = new Show(showName, showId);
-					this.shows.add(show);
-				}
+				String[] values = line.split("\"");
+				String[] seasonEpisode = values[0].split(",");
+				String season = seasonEpisode[1];
+				String episode = seasonEpisode[2];
+				String airdate = values[2].replaceAll(",", "");
+				String title = values[3];
+				Episode e = new Episode(season, episode, airdate, title);
+				this.episodes.add(e);
 			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -59,23 +64,16 @@ public class TVGuide extends ListActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.setListAdapter(new ArrayAdapter<Show>(this,
-				android.R.layout.simple_list_item_1, this.shows));
+		this.setListAdapter(new ArrayAdapter<Episode>(this,
+				android.R.layout.simple_list_item_1, this.episodes));
 		this.selection = (TextView) this.findViewById(R.id.selection);
-		this.selection.setText("Welcome");
+		this.selection.setText(name);
 	}
 
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		Show show = this.shows.get(position);
-		if (show.getId().length() > 0) {
-			Intent intent = new Intent(this, ShowGuide.class);
-			intent.putExtra("id", show.getId());
-			intent.putExtra("name", show.toString());
-			this.startActivity(intent);
-		} else {
-			new AlertDialog.Builder(this).setTitle("Error")
-					.setMessage("No show ID").setNeutralButton("Okay", null)
-					.show();
-		}
+		Episode episode = this.episodes.get(position);
+		new AlertDialog.Builder(this).setTitle(episode.toString())
+				.setMessage(episode.getDescription())
+				.setNeutralButton("Okay", null).show();
 	}
 }
