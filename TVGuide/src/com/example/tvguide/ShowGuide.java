@@ -48,14 +48,16 @@ public class ShowGuide extends ListActivity {
 			in.close();
 			lines = new ArrayList<String>(lines.subList(8, lines.size() - 3));
 			for (String line : lines) {
-				String[] values = line.split("\"");
-				String[] seasonEpisode = values[0].split(",");
-				String season = seasonEpisode[1];
-				String episode = seasonEpisode[2];
-				String airdate = values[2].replaceAll(",", "");
-				String title = values[3];
-				Episode e = new Episode(season, episode, airdate, title);
-				this.episodes.add(e);
+				if (!line.startsWith(",")) {
+					String[] values = line.split("\"");
+					String[] seasonEpisode = values[0].split(",");
+					String season = seasonEpisode[1];
+					String episode = seasonEpisode[2];
+					String airdate = values[2].replaceAll(",", "");
+					String title = values[3];
+					Episode e = new Episode(season, episode, airdate, title);
+					this.episodes.add(e);
+				}
 			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
