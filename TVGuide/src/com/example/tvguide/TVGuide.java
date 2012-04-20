@@ -42,6 +42,24 @@ public class TVGuide extends ListActivity {
 			}
 			in.close();
 			lines.remove(0);
+			ArrayList<String> favorites = new ArrayList<String>();
+			favorites.add("Aliens in America");
+			favorites.add("Boardwalk Empire");
+			favorites.add("Da Ali G Show");
+			favorites.add("Eastbound & Down");
+			favorites.add("Entourage");
+			favorites.add("Family Guy");
+			favorites.add("Hung");
+			favorites.add("Little Mosque on the Prairie");
+			favorites.add("Mad Men");
+			favorites.add("Mind Your Language");
+			favorites.add("Modern Family");
+			favorites.add("Outsourced");
+			favorites.add("The Boondocks");
+			favorites.add("The Cleveland Show");
+			favorites.add("The League");
+			favorites.add("The Office");
+			favorites.add("Weeds");
 			for (String line : lines) {
 				line = line.trim();
 				if (line.length() > 0) {
@@ -49,7 +67,9 @@ public class TVGuide extends ListActivity {
 					String showName = values[0].substring(1);
 					String showId = values[1].split(",")[1];
 					Show show = new Show(showName, showId);
-					this.shows.add(show);
+					if (favorites.contains(showName)) {
+						this.shows.add(show);
+					}
 				}
 			}
 		} catch (MalformedURLException e) {
