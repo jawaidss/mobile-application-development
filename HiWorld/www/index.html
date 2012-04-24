@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Hello, World</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="jquery.mobile-1.1.0.min.css" rel="stylesheet">
+        <style>
+            .ui-page {
+                background: transparent;
+            }
+            body, div {
+                background-color: #ffffff;
+            }
+            p {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page">
+            <div data-role="header">
+                <h1>Hello, World</h1>
+            </div>
+            <div data-role="content">
+                <label for="red">Red</label>
+                <input type="range" id="red" value="0" min="0" max="255" data-highlight="true">
+                <label for="green">Green</label>
+                <input type="range" id="green" value="0" min="0" max="255" data-highlight="true">
+                <label for="blue">Blue</label>
+                <input type="range" id="blue" value="0" min="0" max="255" data-highlight="true">
+                <p>(0, 0, 0)</p>
+            </div>
+        </div>
+        <script src="jquery-1.7.2.min.js"></script>
+        <script src="jquery.mobile-1.1.0.min.js"></script>
+        <script src="cordova-1.6.1.js"></script>
+        <script>
+            function onDeviceReady() {
+                $(function() {
+                    navigator.notification.alert(
+                        "Hello, World!",
+                        function() {},
+                        "What's up?",
+                        "Okay"
+                    );
+                    $("input").change(function() {
+                        if ($(this).val() == "") {
+                            $(this).val(0);
+                        }
+                        var s = "(" + $("#red").val() + ", " + $("#green").val() + ", " + $("#blue").val() + ")";
+                        $("body").css("background-color", "rgb" + s);
+                        $("p").html(s);
+                    });
+                });
+            }
+            document.addEventListener("deviceready", onDeviceReady);
+        </script>
+    </body>
+</html>
