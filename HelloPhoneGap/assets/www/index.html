@@ -17,5 +17,19 @@
         </div>
         <script src="jquery-1.7.2.min.js"></script>
         <script src="jquery.mobile-1.1.0.min.js"></script>
+        <script src="cordova-1.6.1.js"></script>
+        <script>
+            function onDeviceReady() {
+                $(function() {
+                    navigator.notification.alert(
+                        "What's up?",
+                        function() {},
+                        "Hello, World!",
+                        "Okay"
+                    );
+                });
+            }
+            document.addEventListener("deviceready", onDeviceReady);
+        </script>
     </body>
 </html>
