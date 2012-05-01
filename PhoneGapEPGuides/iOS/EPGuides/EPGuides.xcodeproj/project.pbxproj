@@ -38,6 +38,7 @@
 		C313CD8615508A6000C92595 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C313CD8515508A6000C92595 /* MainViewController.m */; };
 		C313CD8815508A6000C92595 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C313CD8715508A6000C92595 /* MainViewController.xib */; };
 		C313CD8C15508A6000C92595 /* verify.sh in Resources */ = {isa = PBXBuildFile; fileRef = C313CD8B15508A6000C92595 /* verify.sh */; };
+		C313CD9715508E5E00C92595 /* www in Resources */ = {isa = PBXBuildFile; fileRef = C313CD9615508E5E00C92595 /* www */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		C313CD8715508A6000C92595 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainViewController.xib; path = Classes/MainViewController.xib; sourceTree = "<group>"; };
 		C313CD8A15508A6000C92595 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = Plugins/README; sourceTree = "<group>"; };
 		C313CD8B15508A6000C92595 /* verify.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = verify.sh; sourceTree = "<group>"; };
+		C313CD9615508E5E00C92595 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		C313CD2815508A6000C92595 = {
 			isa = PBXGroup;
 			children = (
+				C313CD9615508E5E00C92595 /* www */,
 				C313CD5415508A6000C92595 /* EPGuides */,
 				C313CD3915508A6000C92595 /* Frameworks */,
 				C313CD3715508A6000C92595 /* Products */,
@@ -329,6 +332,7 @@
 				C313CD7F15508A6000C92595 /* Cordova.plist in Resources */,
 				C313CD8815508A6000C92595 /* MainViewController.xib in Resources */,
 				C313CD8C15508A6000C92595 /* verify.sh in Resources */,
+				C313CD9715508E5E00C92595 /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +546,7 @@
 				C313CD9115508A6000C92595 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
