@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>EP Guides</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="jquery.mobile-1.1.0.min.css" rel="stylesheet">
+        <!--<style></style>-->
+    </head>
+    <body>
+        <div data-role="page">
+            <div data-role="header">
+                <h1>EP Guides</h1>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-filter="true"></ul>
+            </div>
+        </div>
+        <script src="jquery-1.7.2.min.js"></script>
+        <script src="jquery.mobile-1.1.0.min.js"></script>
+        <script src="../cordova.js"></script>
+        <script>
+            function onDeviceReady() {
+                $(function() {
+                    $.get(
+                        "http://epguides.com/common/allshows.txt",
+                        function(csv) {
+                            var ul = $("ul");
+                            var lines = csv.split("\n");
+                            $.each(lines, function(i, line) {
+                                if (i > 0) {
+                                    trimmedLine = $.trim(line);
+                                    if (trimmedLine.length > 0) {
+                                        var values = trimmedLine.split("\",");
+                                        var showName = values[0].substring(1);
+                                        var showID = values[1].split(",")[1];
+                                        var li = $("<li></li>");
+                                        var a = $("<a></a>");
+                                        a.html(showName);
+                                        a.data("showID", showID);
+                                        a.attr("href", "#");
+                                        li.append(a);
+                                        ul.append(li);
+                                    }
+                                }
+                            });
+                            ul.listview("refresh");
+                        },
+                        "text"
+                    );
+                    $("ul li a").live("click", function() {
+                        var showName = $(this).html();
+                        var showID = $(this).data("showID");
+                        if (showID.length == 0) {
+                            navigator.notification.alert(
+                                "No show ID",
+                                function() {},
+                                "Error",
+                                "Okay"
+                            );
+                            return false;
+                        }
+                        var page = $("<div data-role=page data-url=show" + showID + " data-add-back-btn=true><div data-role=header><h1>" + showName + "</h1></div><div data-role=content><ol data-role=listview></ol></div></div>");
+                        var ul = page.find("ol");
+                        $.get(
+                            "http://epguides.com/common/exportToCSV.asp?rage=" + showID,
+                            function(csv) {
+                                var lines = csv.split("\n");
+                                var season_index = 0;
+                                $.each(lines, function(i, line) {
+                                    if (i > 7 && i < lines.length - 4) {
+                                        var values = line.split("\"");
+                                        var seasonEpisode = values[0].split(",");
+                                        var season = seasonEpisode[1];
+                                        //var episode = seasonEpisode[2];
+                                        var airdate = values[2].replace(/,/g, "");
+                                        var title = values[3];
+                                        if (season != season_index) {
+                                            var li = $("<li data-role=list-divider></li>");
+                                            li.html("Season " + season);
+                                            ul.append(li);
+                                            season_index = season;
+                                        }
+                                        var li = $("<li></li>");
+                                        li.html(title + "<br>" + airdate);
+                                        ul.append(li);
+                                    }
+                                });
+                                ul.listview("refresh");
+                            },
+                            "text"
+                        );
+                        $.mobile.pageContainer.append(page);
+                        $.mobile.changePage(page);
+                        return false;
+                    });
+                });
+            }
+            document.addEventListener("deviceready", onDeviceReady);
+        </script>
+    </body>
+</html>
